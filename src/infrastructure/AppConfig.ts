@@ -1,8 +1,8 @@
 import express, { Application } from "express";
 import { UserRepositoryMySQL } from "../infrastructure/adapters/UserRepositoryMySQL";
-import { UserService } from "../../application/services/UserService";
 import { UserController } from "../infrastructure/rest/controllers/UserController";
-import { UserRouter } from "../adapters/in/rest/UserRouter";
+import { UserRouter } from "../infrastructure/rest/routes/UserRouter";
+import { DomainUserService } from "../application/services/DomainUserService";
 
 export class AppConfig {
   public app: Application;
@@ -15,7 +15,7 @@ export class AppConfig {
 
   private setupRoutes(): void {
     const userRepository = new UserRepositoryMySQL();
-    const userService = new UserService(userRepository);
+    const userService = new DomainUserService(userRepository);
     const userController = new UserController(userService);
     const userRouter = new UserRouter(userController);
 
