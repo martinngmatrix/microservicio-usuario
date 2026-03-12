@@ -10,6 +10,16 @@ export class UserController {
     res.status(200).json(users);
   }
 
+  async getById(req: Request, res: Response): Promise<void> {
+    const { id } = req.params;
+    try {
+      const user = await this.userService.getUserById(id as string);
+      res.status(200).json(user);
+    } catch {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
+  }
+
   async create(req: Request, res: Response): Promise<void> {
     const { username, name, lastName, email, adress, cellphone, password } = req.body as User;
 
@@ -19,7 +29,7 @@ export class UserController {
     }
 
     const user = new User("", username, name, lastName, email, adress, cellphone, password);
-    const saved = await this.userService.saveUser(user);
-    res.status(201).json(saved);
+    await this.userService.saveUser(user);
+    res.status(201).json({ message: "Usuario creado exitosamente" });
   }
 }

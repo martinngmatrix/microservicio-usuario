@@ -14,6 +14,10 @@ export class UserRouter {
       "/users",
       this.userController.getAll.bind(this.userController)
     );
+    this.router.get(
+      "/users/:id",
+      this.userController.getById.bind(this.userController)
+    );
     this.router.post(
       "/users",
       this.userController.create.bind(this.userController)

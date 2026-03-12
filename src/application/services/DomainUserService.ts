@@ -13,11 +13,11 @@ export class DomainUserService implements UserService {
     return this.userRepository.findAll();
   }
 
-//   async getUserById(id: string): Promise<User> {
-//     const user = await this.userRepository.findById(id);
-//     if (!user) throw new Error(`User with id ${id} not found`);
-//     return user;
-//   }
+  async getUserById(id: string): Promise<User> {
+    const user = await this.userRepository.findById(id);
+    if (!user) throw new Error(`User with id ${id} not found`);
+    return user;
+  }
 
   async saveUser(user: User): Promise<User> {
     return this.userRepository.save(user);
